@@ -31,4 +31,3 @@ char Solo::getCharRepr() const {
     if (ferramenta) return 'F';
     return ' ';
 }
-
