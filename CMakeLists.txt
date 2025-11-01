@@ -9,4 +9,8 @@ add_executable(trabalho main.cpp
         jardim.h
         jardim.cpp
         planta.h
-        jardineiro.h)
+        jardineiro.h
+        Interface/Interface.cpp
+        Interface/Interface.h
+        Comandos/Comandos.cpp
+        Comandos/Comandos.h)

@@ -42,7 +42,7 @@ Solo& Jardim::getSolo(int l, int c) {
 void Jardim::imprime() const {
     std::cout << " ";
     for (int c = 0; c < colunas; ++c)
-        std::cout << (char)('A' + c);
+        std::cout << (char)('A' + c) << " ";
     std::cout << "\n";
 
     for (int l = 0; l < linhas; ++l) {
@@ -53,7 +53,7 @@ void Jardim::imprime() const {
                 ch = '*';
             else
                 ch = grelha[l][c].getCharRepr();
-            std::cout << ch;
+            std::cout << ch ;
         }
         std::cout << "\n";
     }
