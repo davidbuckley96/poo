@@ -4,7 +4,7 @@
 
 #ifndef TRABALHO_SOLO_H
 #define TRABALHO_SOLO_H
-#include "Settings.h"
+#include "../../Settings.h"
 
 class Planta;
 class Ferramenta;

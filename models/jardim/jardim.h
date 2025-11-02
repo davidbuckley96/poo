@@ -4,8 +4,8 @@
 
 #ifndef TRABALHO_JARDIM_H
 #define TRABALHO_JARDIM_H
-#include "solo.h"
-#include "Settings.h"
+#include "../solo/solo.h"
+#include "../../Settings.h"
 #include <iostream>
 
 class Jardineiro;

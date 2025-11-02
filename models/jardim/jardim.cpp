@@ -2,10 +2,10 @@
 // Created by GoodBarber on 22/10/2025.
 //
 
-#include "jardim.h"
-#include "solo.h"
-#include "planta.h"
-#include "jardineiro.h"
+#include "../jardim/jardim.h"
+#include "../solo/solo.h"
+#include "../planta/planta.h"
+#include "../jardineiro/jardineiro.h"
 #include <cstdlib>
 #include <iostream>
 
