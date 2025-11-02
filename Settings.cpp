@@ -1,0 +1,57 @@
+//
+// Created by GoodBarber on 01/11/2025.
+//
+#include "Settings.h"
+
+// OBS: Devido a um erro "Undefined symbols for architecture arm64", e dada a impossibilidade de alterar
+// o `static const int absorcao_nutrientes` para `static constexpr int absorcao_nutrientes`, foi criado um arquivo
+// Settings.cpp para definir as constantes declaradas em Settings.h
+const int Settings::Cacto::absorcao_agua_percentagem;
+const int Settings::Cacto::absorcao_nutrientes;
+const int Settings::Cacto::morre_agua_solo_maior;
+const int Settings::Cacto::morre_agua_solo_instantes;
+const int Settings::Cacto::morre_nutrientes_solo_menor;
+const int Settings::Cacto::morre_nutrientes_solo_instantes;
+const int Settings::Cacto::multiplica_nutrientes_maior;
+const int Settings::Cacto::multiplica_agua_maior;
+
+const int Settings::Jardim::agua_min;
+const int Settings::Jardim::agua_max;
+const int Settings::Jardim::nutrientes_min;
+const int Settings::Jardim::nutrientes_max;
+
+const int Settings::Regador::capacidade;
+const int Settings::Regador::dose;
+
+const int Settings::Adubo::capacidade;
+const int Settings::Adubo::dose;
+
+const int Settings::Jardineiro::max_movimentos;
+const int Settings::Jardineiro::max_entradas_saidas;
+const int Settings::Jardineiro::max_plantacoes;
+const int Settings::Jardineiro::max_colheitas;
+
+const int Settings::Roseira::inicial_agua;
+const int Settings::Roseira::inicial_nutrientes;
+const int Settings::Roseira::perda_agua;
+const int Settings::Roseira::perda_nutrientes;
+const int Settings::Roseira::absorcao_agua;
+const int Settings::Roseira::absorcao_nutrientes;
+const int Settings::Roseira::morre_agua_menor;
+const int Settings::Roseira::morre_nutrientes_menor;
+const int Settings::Roseira::morre_nutrientes_maior;
+const int Settings::Roseira::multiplica_nutrientes_maior;
+const int Settings::Roseira::nova_nutrientes;
+const int Settings::Roseira::nova_agua_percentagem;
+const int Settings::Roseira::original_nutrientes;
+const int Settings::Roseira::original_agua_percentagem;
+
+const int Settings::ErvaDaninha::inicial_agua;
+const int Settings::ErvaDaninha::inicial_nutrientes;
+const int Settings::ErvaDaninha::absorcao_agua;
+const int Settings::ErvaDaninha::absorcao_nutrientes;
+const int Settings::ErvaDaninha::morre_instantes;
+const int Settings::ErvaDaninha::multiplica_nutrientes_maior;
+const int Settings::ErvaDaninha::multiplica_instantes;
+const int Settings::ErvaDaninha::nova_nutrientes;
+const int Settings::ErvaDaninha::original_nutrientes;
