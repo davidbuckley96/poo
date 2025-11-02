@@ -24,7 +24,7 @@ public:
     void imprime() const;
     void avancarInstante(int n = 1);
     bool coordenadaValida(int l, int c) const;
-    Solo& getSolo(int l, int c);
+    Solo* getSolo(int l, int c);
 
     void plantar(int l, int c, Planta* p);
     void colher(int l, int c);

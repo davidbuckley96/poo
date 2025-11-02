@@ -31,12 +31,12 @@ bool Jardim::coordenadaValida(int l, int c) const {
     return (l >= 0 && l < linhas && c >= 0 && c < colunas);
 }
 
-Solo& Jardim::getSolo(int l, int c) {
+Solo* Jardim::getSolo(int l, int c) {
     if (!coordenadaValida(l, c)) {
-        std::cerr << "Coordenada inválida (" << l << "," << c << ")" << std::endl;
-        std::exit(1);
+        std::cout << "Coordenada inválida (" << l + 1 << "," << c + 1 << ")" << std::endl;
+        return nullptr;
     }
-    return grelha[l][c];
+    return &grelha[l][c];
 }
 
 void Jardim::imprime() const {
@@ -83,7 +83,11 @@ void Jardim::plantar(int l, int c, Planta *p) {
 }
 
 void Jardim::colher(int l, int c) {
-    if (!coordenadaValida(l, c)) return;
+    if (!coordenadaValida(l, c)) {
+        std::cout << "Cordenada Invalida\n";
+        return;
+    }
+
 
     Solo& s = grelha[l][c];
     if (s.getPlanta()) {
