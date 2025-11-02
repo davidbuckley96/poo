@@ -61,4 +61,4 @@ void Comandos::listaPlanta(const string& linhas, const string& colunas) {
 
 }
 
-void Comandos::
+// void Comandos::

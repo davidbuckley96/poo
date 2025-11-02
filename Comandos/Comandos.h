@@ -6,7 +6,7 @@
 #define TRABALHO_COMANDOS_H
 
 
-#include "../jardim.h"
+#include "../models/jardim/jardim.h"
 
 using namespace std;
 

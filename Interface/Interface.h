@@ -4,7 +4,7 @@
 
 #ifndef TRABALHO_INTERFACE_H
 #define TRABALHO_INTERFACE_H
-#include "../jardim.h"
+#include "../models/jardim/jardim.h"
 #include "../Comandos/Comandos.h"
 
 using namespace std;
