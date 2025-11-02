@@ -44,10 +44,11 @@ void Interface::verificaComando() {
 
     } else if (nomeComando == "executa") {
 
-        cout << "Executar comandos a partir de ficheiro (por implementar).\n";
+        comandos.executa();
 
     } else if (nomeComando == "fim") {
         stop = true;
+        comandos.fim();
     } else if (nomeComando == "avanca") {
 
         int n = 1;
@@ -69,7 +70,79 @@ void Interface::verificaComando() {
             comandos.listaPlanta(linhaLetra, colunaLetra);
         }
 
+    }else if (nomeComando == "larea") {
+        comandos.listaPropriedades();
+
+    }else if (nomeComando == "lsolo") {
+
+        //valor default
+        raio = 0;
+
+        if (!(iss >> pos)) {
+            cout << "Uso: lsolo <lc> [n]\n";
+        }
+        iss >> raio;
+
+        if (pos.size() != 2) {
+            cout << "Posição invalida (usa 2 letras, ex. df)\n";
+            return;
+        }
+
+        linhaLetra = string(1, tolower(pos[0]));
+        colunaLetra = string(1, tolower(pos[1]));
+
+
+        comandos.verSolo(linhaLetra , colunaLetra, raio);
+
+    }else if (nomeComando == "lferr") {
+        comandos.listaFerramentas();
+    }else if (nomeComando == "colhe") {
+
+        if (!(iss >> pos)) {
+            std::cout << "Uso: colhe <lc>\n";
+            return;
+        }
+
+        // validar que tem 2 letras
+        if (pos.size() != 2) {
+            std::cout << "Posição inválida (usa 2 letras, ex.: df)\n";
+            return;
+        }
+
+        linhaLetra = string(1, tolower(pos[0]));
+        colunaLetra = string(1, tolower(pos[1]));
+
+
+        comandos.colhe(linhaLetra, colunaLetra);
+    }else if (nomeComando == "planta") {
+
+
+
+    }else if (nomeComando == "larga") {
+
+    }else if (nomeComando == "pega") {
+
+    }else if (nomeComando == "compra") {
+
+    }else if (nomeComando == "e" || nomeComando == "d" || nomeComando == "c" || nomeComando == "b") {
+
+        comandos.desloca(nomeComando);
+
+    }else if (nomeComando == "entra") {
+
+    }else if (nomeComando == "sai") {
+
+    }else if (nomeComando == "grava") {
+
+    }else if (nomeComando == "recupera") {
+
+    }else if (nomeComando == "apaga") {
+
     }
+    else {
+        cout << "Comando não existe, tente de novo\n";
+    }
+
 
 
 

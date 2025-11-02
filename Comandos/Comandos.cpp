@@ -37,9 +37,12 @@ void Comandos::criaJardim(int linhas, int colunas) {
     }
 
 
+    l = linhas;
+    c = colunas;
 
     jardim = new Jardim(linhas, colunas);
     jardimCriado = true;
+
 
 
     cout << "Jardim criado com sucesso (" << linhas << "x" << colunas << ").\n";
@@ -61,4 +64,95 @@ void Comandos::listaPlanta(const string& linhas, const string& colunas) {
 
 }
 
-// void Comandos::
+void Comandos::listaPropriedades() {
+
+}
+
+void Comandos::verSolo(string& linha, string& coluna, int raio) {
+
+    char lh = tolower(linha[0]);
+    char ch = tolower(coluna[0]);
+
+    int l = lh - 'a';
+    int c = ch - 'a';
+
+    Solo& s = jardim->getSolo(l, c);
+
+}
+
+void Comandos::listaFerramentas() {
+
+}
+
+void Comandos::colhe(string& linha, string& coluna) {
+
+    char lh = tolower(linha[0]);
+    char ch = tolower(coluna[0]);
+
+    int l = lh - 'a';
+    int c = ch - 'a';
+
+    jardim->colher(l,c);
+}
+
+void Comandos::planta() {
+
+}
+
+void Comandos::larga() {
+
+}
+
+void Comandos::pega() {
+
+}
+
+void Comandos::compra() {
+
+}
+
+void Comandos::desloca(string direção) {
+
+    char dir = tolower(direção[0]);
+
+    switch (dir) {
+        case 'e' : cout << "Movimento esquerdo";
+        case 'd' : cout << "Movimento direito";
+        case 'c' : cout << "Movimento cima";
+        case 'b' : cout << "Movimento baixo";
+    }
+}
+
+void Comandos::entra() {
+
+}
+
+void Comandos::sai() {
+
+}
+
+void Comandos::grava() {
+
+}
+
+void Comandos::recupera() {
+
+}
+
+void Comandos::apaga() {
+
+}
+
+void Comandos::executa() {
+
+}
+
+void Comandos::fim() {
+
+}
+
+
+
+
+
+

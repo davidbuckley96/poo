@@ -12,8 +12,8 @@ using namespace std;
 class Interface {
     string comando;
     string nomeComando;
-    int linhas,colunas;
-    string linhaLetra, colunaLetra;
+    int linhas,colunas, raio;
+    string linhaLetra, colunaLetra, pos;
     Comandos comandos;
     bool stop;
 
