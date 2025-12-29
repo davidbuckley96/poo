@@ -21,6 +21,7 @@ protected:
     char simbolo;
 
 public:
+    virtual Planta* clone() const = 0;
     Planta(char simb, const std::string& tipoBeleza);
     virtual ~Planta();
 

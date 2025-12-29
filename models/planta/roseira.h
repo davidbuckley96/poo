@@ -13,6 +13,8 @@ class Roseira : public Planta {
 public:
     Roseira();
 
+    Planta* clone() const override { return new Roseira(*this); }
+
     void atualiza(Jardim& jardim, int linha, int coluna) override;
     void morrer(Solo& solo) override;
 };

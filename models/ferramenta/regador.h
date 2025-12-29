@@ -16,6 +16,8 @@ class Regador : public Ferramenta {
 public:
     Regador();
 
+    Ferramenta* clone() const override { return new Regador(*this); }
+
     void usar(Solo& solo) override;
     void mostrarInfo() const override;
 };

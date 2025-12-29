@@ -16,6 +16,8 @@ class Cacto : public Planta {
 public:
     Cacto();
 
+    Planta* clone() const override { return new Cacto(*this); }
+
     void atualiza(Jardim& jardim, int linha, int coluna) override;
     void morrer(Solo& solo) override;
 };

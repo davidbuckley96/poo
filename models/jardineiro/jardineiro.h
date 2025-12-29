@@ -10,12 +10,15 @@
 #include <vector>
 #include <iostream>
 
+#include "jardim/jardim.h"
+
 class Jardineiro {
     int linha;
     int coluna;
     bool dentroDoJardim;
     int movimentosFeitos;
-    int entradasSaidasFeitas;
+    int entradasFeitas;
+    int saidasFeitas;
     int plantacoesFeitas;
     int colheitasFeitas;
 
@@ -24,12 +27,14 @@ class Jardineiro {
 
 public:
     Jardineiro();
+    ~Jardineiro();
 
     // Posição e estado
     bool estaNaPosicao(int l, int c) const;
     bool estaNoJardim() const;
-    void entrarNoJardim(int l, int c);
+    void entrarNoJardim(Jardim* j, int l, int c);
     void sairDoJardim();
+    void colocarNoJardimInicial(Jardim* j, int l, int c);
 
     void mover(char direcao, int maxLinhas, int maxColunas);
 
@@ -40,7 +45,15 @@ public:
     void largaFerramenta();
     void usaFerramenta(Solo& solo);
     void listarFerramentas() const;
-    void escolherFerramentaPorNumero(int numero);
+    bool escolherFerramentaPorNumero(int numero);
+    bool compraFerramenta(char tipo);
+
+    //Plantações
+    bool podePlantar() const;
+    void registaPlantacao();
+    bool podeColher() const;
+    void registaColheita();
+
 
     int getLinha() const { return linha; }
     int getColuna() const { return coluna; }

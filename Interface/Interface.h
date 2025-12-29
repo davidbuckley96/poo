@@ -4,25 +4,22 @@
 
 #ifndef TRABALHO_INTERFACE_H
 #define TRABALHO_INTERFACE_H
-#include "../models/jardim/jardim.h"
-#include "../Comandos/Comandos.h"
+#include <string>
+#include "Jogo.h"
 
+class Comando;
 using namespace std;
 
 class Interface {
-    string comando;
-    string nomeComando;
-    int linhas,colunas, raio;
-    string linhaLetra, colunaLetra, pos;
-    Comandos comandos;
-    bool stop;
-
-public:
-    Interface() = default;
-    void inicializa();
-    void verificaComando();
 private:
 
+    bool processaLinha(const string &linha);
+    Comando* criarComando(const string &comando, stringstream& ss);
+    Jogo jogo;
+
+public:
+    void run();
+    bool executaFicheiro(const std::string& nomeFicheiro);
 };
 
 

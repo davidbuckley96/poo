@@ -24,6 +24,8 @@ class PlantaExotica : public Planta {
 public:
     PlantaExotica();
 
+    Planta* clone() const override { return new PlantaExotica(*this); }
+
     void atualiza(Jardim& jardim, int linha, int coluna) override;
     void morrer(Solo& solo) override;
 };

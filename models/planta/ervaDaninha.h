@@ -16,6 +16,8 @@ class ErvaDaninha : public Planta {
 public:
     ErvaDaninha();
 
+    Planta* clone() const override { return new ErvaDaninha(*this); }
+
     void atualiza(Jardim& jardim, int linha, int coluna) override;
     void morrer(Solo& solo) override;
 };

@@ -6,9 +6,27 @@
 #include "../solo/solo.h"
 #include <iostream>
 
+#include "ferramenta/adubo.h"
+#include "ferramenta/carroDeMao.h"
+#include "ferramenta/regador.h"
+#include "ferramenta/tesoura.h"
+
+
+
+Jardineiro::~Jardineiro() {
+    delete ferramentaMao;
+    ferramentaMao = nullptr;
+
+    for (Ferramenta* f : ferramentas) {
+        delete f;
+    }
+    ferramentas.clear();
+}
+
+
 Jardineiro::Jardineiro()
     : linha(-1), coluna(-1), dentroDoJardim(false),
-      movimentosFeitos(0), entradasSaidasFeitas(0),
+      movimentosFeitos(0), entradasFeitas(0), saidasFeitas(0),
       plantacoesFeitas(0), colheitasFeitas(0),
       ferramentaMao(nullptr) {}
 
@@ -20,17 +38,17 @@ bool Jardineiro::estaNoJardim() const {
     return dentroDoJardim;
 }
 
-void Jardineiro::entrarNoJardim(int l, int c) {
-    if (entradasSaidasFeitas >= Settings::Jardineiro::max_entradas_saidas) {
-        std::cout << "O jardineiro já entrou/saiu o máximo permitido neste turno.\n";
+void Jardineiro::entrarNoJardim(Jardim* j, int l, int c) {
+    if (entradasFeitas >= Settings::Jardineiro::max_entradas_saidas) {
+        std::cout << "O jardineiro já entrou o máximo permitido neste turno.\n";
         return;
     }
+
+    dentroDoJardim = true;
+    entradasFeitas++;
+
     linha = l;
     coluna = c;
-    dentroDoJardim = true;
-    entradasSaidasFeitas++;
-    std::cout << "Jardineiro entrou no jardim na posição "
-              << (char)('A' + l) << (char)('A' + c) << ".\n";
 }
 
 void Jardineiro::sairDoJardim() {
@@ -38,14 +56,14 @@ void Jardineiro::sairDoJardim() {
         std::cout << "O jardineiro já está fora do jardim.\n";
         return;
     }
-    if (entradasSaidasFeitas >= Settings::Jardineiro::max_entradas_saidas) {
+    if (saidasFeitas >= Settings::Jardineiro::max_entradas_saidas) {
         std::cout << "O jardineiro não pode sair novamente neste turno.\n";
         return;
     }
     dentroDoJardim = false;
     linha = -1;
     coluna = -1;
-    entradasSaidasFeitas++;
+    saidasFeitas++;
     std::cout << "Jardineiro saiu do jardim.\n";
 }
 
@@ -59,6 +77,8 @@ void Jardineiro::mover(char direcao, int maxLinhas, int maxColunas) {
         std::cout << "Limite de movimentos por turno atingido.\n";
         return;
     }
+
+    movimentosFeitos++;
 
     int novaL = linha;
     int novaC = coluna;
@@ -80,7 +100,7 @@ void Jardineiro::mover(char direcao, int maxLinhas, int maxColunas) {
 
     linha = novaL;
     coluna = novaC;
-    movimentosFeitos++;
+
 
     std::cout << "Jardineiro moveu-se para "
               << (char)('A' + linha) << (char)('A' + coluna) << ".\n";
@@ -88,7 +108,8 @@ void Jardineiro::mover(char direcao, int maxLinhas, int maxColunas) {
 
 void Jardineiro::resetarAcoesTurno() {
     movimentosFeitos = 0;
-    entradasSaidasFeitas = 0;
+    entradasFeitas = 0;
+    saidasFeitas = 0;
     plantacoesFeitas = 0;
     colheitasFeitas = 0;
 }
@@ -125,23 +146,87 @@ void Jardineiro::usaFerramenta(Solo& solo) {
 }
 
 void Jardineiro::listarFerramentas() const {
-    std::cout << "Ferramentas transportadas:\n";
-    for (auto* f : ferramentas)
-        f->mostrarInfo();
+
+    if (ferramentas.empty()) {
+        std::cout << "Nao tem ferramentas no inventario.\n";
+    } else {
+        std::cout << "Ferramentas no inventario:\n";
+        for (auto f : ferramentas) {
+            std::cout << " - ";
+            f->mostrarInfo();
+        }
+    }
+
     if (ferramentaMao) {
-        std::cout << "Na mão: ";
+        std::cout << "Na mao (ativa):\n";
         ferramentaMao->mostrarInfo();
+    } else {
+        std::cout << "Na mao: nenhuma\n";
     }
 }
 
-void Jardineiro::escolherFerramentaPorNumero(int numero) {
+bool Jardineiro::escolherFerramentaPorNumero(int numero) {
+
+    if (ferramentaMao) {
+        ferramentas.push_back(ferramentaMao);
+        ferramentaMao = nullptr;
+
+        std::cout << "Guardou a ferramenta que tinha na mão.\n";
+    }
+
     for (auto it = ferramentas.begin(); it != ferramentas.end(); ++it) {
         if ((*it)->getNumeroSerie() == numero) {
             ferramentaMao = *it;
             ferramentas.erase(it);
+
             std::cout << "Ferramenta com Nº " << numero << " colocada na mão.\n";
-            return;
+            return true;
         }
     }
+
     std::cout << "Ferramenta com Nº " << numero << " não encontrada.\n";
+    return false;
+}
+
+void Jardineiro::colocarNoJardimInicial(Jardim* j, int l, int c) {
+    dentroDoJardim = true;
+    linha = l;
+    coluna = c;
+}
+
+
+bool Jardineiro::compraFerramenta(char tipo) {
+    tipo = std::tolower(tipo);
+
+    Ferramenta* f = nullptr;
+
+    switch (tipo) {
+        case 'g': f = new Regador(); break;
+        case 'a': f = new Adubo(); break;
+        case 't': f = new Tesoura(); break;
+        case 'z': f = new CarroDeMao(); break;
+        default:
+            std::cout << "Tipo de ferramenta invalido. Use g, a, t, z.\n";
+            return false;
+    }
+
+    pegarFerramenta(f);
+    return true;
+
+}
+
+bool Jardineiro::podePlantar() const {
+    return plantacoesFeitas < 2;
+}
+
+void Jardineiro::registaPlantacao() {
+    ++plantacoesFeitas;
+}
+
+bool Jardineiro::podeColher() const {
+    return colheitasFeitas < 5;
+}
+
+void Jardineiro::registaColheita() {
+    ++colheitasFeitas;
 }

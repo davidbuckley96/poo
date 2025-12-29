@@ -16,6 +16,8 @@ class Adubo : public Ferramenta {
 public:
     Adubo();
 
+    Ferramenta* clone() const override { return new Adubo(*this); }
+
     void usar(Solo& solo) override;
     void mostrarInfo() const override;
 };

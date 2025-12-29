@@ -22,6 +22,8 @@ public:
     Ferramenta(char s);
     virtual ~Ferramenta();
 
+    virtual Ferramenta* clone() const = 0;
+
     int getNumeroSerie() const;
     char getCharRepr() const;
     bool estaAtiva() const;

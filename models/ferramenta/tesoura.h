@@ -15,6 +15,8 @@ class Tesoura : public Ferramenta {
 public:
     Tesoura();
 
+    Ferramenta* clone() const override { return new Tesoura(*this); }
+
     void usar(Solo& solo) override;
     void mostrarInfo() const override;
 };
