@@ -20,8 +20,6 @@ public:
     Ferramenta* clone() const override { return new CarroDeMao(*this); }
 
     void usar(Solo& solo) override;
-    void moverPlanta(Jardim& jardim, Jardineiro& jardineiro,
-                     int origemL, int origemC, int destinoL, int destinoC);
     void mostrarInfo() const override;
 };
 

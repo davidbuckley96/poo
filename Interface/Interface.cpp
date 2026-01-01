@@ -241,12 +241,29 @@ Comando* Interface::criarComando(const string &comando, stringstream &ss) {
     }
 
     if (comando == "usar") {
-        std::string pos;
-        if (!(ss >> pos) || pos.size() != 2) {
-            std::cout << "Use: usar <lc>\n";
+        std::string p1;
+        if (!(ss >> p1) || p1.size() != 2) {
+            std::cout << "Use: usar <lc>  OU  usar <lc_origem> <lc_destino>\n";
             return nullptr;
         }
-        return new CmdUsar(pos[0], pos[1]);
+
+        std::string p2;
+        if (ss >> p2) {
+            if (p2.size() != 2) {
+                std::cout << "Use: usar <lc_origem> <lc_destino>\n";
+                return nullptr;
+            }
+
+            std::string extra;
+            if (ss >> extra) {
+                std::cout << "Use: usar <lc>  OU  usar <lc_origem> <lc_destino>\n";
+                return nullptr;
+            }
+
+            return new CmdUsar(p1[0], p1[1], p2[0], p2[1]);
+        }
+
+        return new CmdUsar(p1[0], p1[1]);
     }
 
     if (comando == "planta") {

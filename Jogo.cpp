@@ -3,7 +3,7 @@
 //
 
 #include "Jogo.h"
-
+#include "ferramenta/carroDeMao.h"
 #include "planta/cacto.h"
 #include "planta/ervadaninha.h"
 #include "planta/plantaExotica.h"
@@ -216,6 +216,47 @@ bool Jogo::usar(char lChar, char cChar) {
 
     Solo& solo = jardim->getSolo(l, c);
     jardineiro.usaFerramenta(solo);
+    return true;
+}
+
+bool Jogo::usar(char lOrigChar, char cOrigChar, char lDestChar, char cDestChar) {
+    if (!jardim) {
+        std::cout << "Ainda nao existe jardim.\n";
+        return false;
+    }
+    if (!jardineiro.estaNoJardim()) {
+        std::cout << "O jardineiro nao esta dentro do jardim.\n";
+        return false;
+    }
+
+    Ferramenta* f = jardineiro.getFerramentaMao();
+    if (!f) {
+        std::cout << "O jardineiro não tem nenhuma ferramenta na mão.\n";
+        return false;
+    }
+    if (!f->estaAtiva()) {
+        std::cout << "A ferramenta está inativa.\n";
+        return false;
+    }
+
+    // Este overload é para o carro de mão
+    if (dynamic_cast<CarroDeMao*>(f) == nullptr) {  // Casting operator que tenta converter a classe base Ferramenta em uma classe CarroDeMao
+        std::cout << "Esse uso com duas coordenadas é apenas para o carro de mão.\n";
+        return false;
+    }
+
+    int lOrig, cOrig, lDest, cDest;
+    if (!letraParaIndice(lOrigChar, cOrigChar, lOrig, cOrig) ||
+        !letraParaIndice(lDestChar, cDestChar, lDest, cDest)) {
+        std::cout << "Coordenadas invalidas.\n";
+        return false;
+        }
+
+    if (!jardim->moverPlanta(lOrig, cOrig, lDest, cDest)) {
+        return false;
+    }
+
+    jardim->imprime();
     return true;
 }
 

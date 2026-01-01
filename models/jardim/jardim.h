@@ -37,7 +37,7 @@ public:
     void colocaFerramentaAleatoria();
     Ferramenta* criaFerramentaAleatoria();
 
-
+    bool moverPlanta(int lOrig, int cOrig, int lDest, int cDest);
 };
 
 #endif //TRABALHO_JARDIM_H

@@ -47,6 +47,7 @@ public:
     void listarFerramentas() const;
     bool escolherFerramentaPorNumero(int numero);
     bool compraFerramenta(char tipo);
+    Ferramenta* getFerramentaMao() const { return ferramentaMao; }
 
     //Plantações
     bool podePlantar() const;

@@ -263,3 +263,52 @@ Ferramenta* Jardim::criaFerramentaAleatoria() {
         default: return new CarroDeMao();
     }
 }
+
+bool Jardim::moverPlanta(int lOrig, int cOrig, int lDest, int cDest) {
+    if (!coordenadaValida(lOrig, cOrig) || !coordenadaValida(lDest, cDest)) {
+        std::cout << "Coordenadas fora dos limites.\n";
+        return false;
+    }
+
+    if (lOrig == lDest && cOrig == cDest) {
+        std::cout << "Origem e destino são iguais.\n";
+        return false;
+    }
+
+    // "espaço vazio" = sem planta, sem ferramenta e sem jardineiro em cima
+    if (jardineiro && jardineiro->estaNaPosicao(lDest, cDest)) {
+        std::cout << "Destino ocupado pelo jardineiro.\n";
+        return false;
+    }
+
+    Solo& sOrig = getSolo(lOrig, cOrig);
+    Solo& sDest = getSolo(lDest, cDest);
+
+    Planta* p = sOrig.getPlanta();
+    if (!p) {
+        std::cout << "Não existe planta na origem.\n";
+        return false;
+    }
+
+    if (!p->estaViva()) {
+        std::cout << "A planta na origem não está viva.\n";
+        return false;
+    }
+
+    if (sDest.getPlanta() != nullptr || sDest.getFerramenta() != nullptr) {
+        std::cout << "Destino não está vazio.\n";
+        return false;
+    }
+
+    // move o ponteiro da planta
+    sOrig.setPlanta(nullptr);
+    sDest.setPlanta(p);
+
+    std::cout << "Planta movida de "
+              << (char)('A' + lOrig) << (char)('A' + cOrig)
+              << " para "
+              << (char)('A' + lDest) << (char)('A' + cDest)
+              << ".\n";
+
+    return true;
+}

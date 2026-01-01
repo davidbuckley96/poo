@@ -8,9 +8,12 @@
 #include "Comando.h"
 
 class CmdUsar : public Comando {
-    char l, c;
+    bool temDestino = false;
+    char l1, c1;
+    char l2, c2;
 public:
     CmdUsar(char l, char c);
+    CmdUsar(char lOrig, char cOrid, char lDest, char cDest);
     bool executar(Jogo& jogo) override;
 };
 

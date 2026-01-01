@@ -31,6 +31,7 @@ class Jogo {
     bool pega(int n);
     bool compra(char c);
     bool usar(char lChar, char cChar);
+    bool usar(char lOrig, char cOrig, char lDest, char cDest);
     bool letraParaIndice(char lChar, char cChar, int &l, int &c) const;
     bool planta(char l, char c, char tipo);
     bool lplanta(char lChar, char cChar) const;
