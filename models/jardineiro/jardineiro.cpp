@@ -116,6 +116,7 @@ void Jardineiro::resetarAcoesTurno() {
 
 void Jardineiro::pegarFerramenta(Ferramenta* f) {
     if (!f) return;
+    f->setAtiva(false);
     ferramentas.push_back(f);
     std::cout << "Jardineiro apanhou a ferramenta " << f->getCharRepr()
               << " (Nº " << f->getNumeroSerie() << ").\n";
@@ -168,6 +169,7 @@ void Jardineiro::listarFerramentas() const {
 bool Jardineiro::escolherFerramentaPorNumero(int numero) {
 
     if (ferramentaMao) {
+        ferramentaMao->setAtiva(false);
         ferramentas.push_back(ferramentaMao);
         ferramentaMao = nullptr;
 
@@ -177,6 +179,7 @@ bool Jardineiro::escolherFerramentaPorNumero(int numero) {
     for (auto it = ferramentas.begin(); it != ferramentas.end(); ++it) {
         if ((*it)->getNumeroSerie() == numero) {
             ferramentaMao = *it;
+            ferramentaMao->setAtiva(true);
             ferramentas.erase(it);
 
             std::cout << "Ferramenta com Nº " << numero << " colocada na mão.\n";

@@ -77,6 +77,8 @@ add_executable(trabalho main.cpp
         Comandos/CmdRecupera.h
         Comandos/CmdGrava.cpp
         Comandos/CmdGrava.h
+        Comandos/CmdUsar.cpp
+        Comandos/CmdUsar.h
 )
 
 

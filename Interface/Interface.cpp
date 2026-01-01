@@ -32,6 +32,7 @@
 #include "CmdExecuta.h"
 #include "CmdGrava.h"
 #include "CmdRecupera.h"
+#include "CmdUsar.h"
 
 
 bool Interface::executaFicheiro(const string& nomeFicheiro) {
@@ -237,6 +238,15 @@ Comando* Interface::criarComando(const string &comando, stringstream &ss) {
             return nullptr;
         }
         return new CmdLFerr();
+    }
+
+    if (comando == "usar") {
+        std::string pos;
+        if (!(ss >> pos) || pos.size() != 2) {
+            std::cout << "Use: usar <lc>\n";
+            return nullptr;
+        }
+        return new CmdUsar(pos[0], pos[1]);
     }
 
     if (comando == "planta") {

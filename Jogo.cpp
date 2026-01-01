@@ -36,10 +36,22 @@ bool Jogo::letraParaIndice(char lChar, char cChar, int &l, int &c) const {
 
 void Jogo::avancar(int n) {
     if (n <= 0) n = 1;
-    instante += n;
 
-    jardineiro.resetarAcoesTurno();
-    jardim->imprime();
+    if (!jardim) {
+        std::cout << "Nao existe jardim.\n";
+        return;
+    }
+
+    for (int i = 0; i < n; ++i) {
+        instante++;
+        jardim->avancarInstante(1);
+        jardineiro.resetarAcoesTurno();
+    }
+
+    //instante += n;
+
+    //jardineiro.resetarAcoesTurno();
+    //jardim->imprime();
 }
 
 int Jogo::getInstante() const {
@@ -178,6 +190,32 @@ bool Jogo::pega(int n) {
     }
 
     jardineiro.escolherFerramentaPorNumero(n);
+    return true;
+}
+
+bool Jogo::usar(char lChar, char cChar) {
+    if (!jardim) {
+        std::cout << "Ainda nao existe jardim.\n";
+        return false;
+    }
+    if (!jardineiro.estaNoJardim()) {
+        std::cout << "O jardineiro nao esta dentro do jardim.\n";
+        return false;
+    }
+
+    int l, c;
+    if (!letraParaIndice(lChar, cChar, l, c)) {
+        std::cout << "Coordenadas invalidas.\n";
+        return false;
+    }
+
+    if (!jardim->coordenadaValida(l, c)) {
+        std::cout << "Posicoes fora dos limites.\n";
+        return false;
+    }
+
+    Solo& solo = jardim->getSolo(l, c);
+    jardineiro.usaFerramenta(solo);
     return true;
 }
 

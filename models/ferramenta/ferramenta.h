@@ -27,6 +27,7 @@ public:
     int getNumeroSerie() const;
     char getCharRepr() const;
     bool estaAtiva() const;
+    void setAtiva(bool valor);
 
     // Método polimórfico — cada ferramenta implementa sua ação
     virtual void usar(Solo& solo) = 0;

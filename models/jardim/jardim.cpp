@@ -174,7 +174,21 @@ void Jardim::avancarInstante(int n) {
     for (int i = 0; i < n; ++i) {
         instanteAtual++;
 
-        // FUTURAMENTE: atualizar elementos (plantas, solo, ferramentas...)
+        for (int l = 0; l < linhas; ++l) {
+            for (int c = 0; c < colunas; ++c) {
+                Planta* p = grelha[l][c].getPlanta();
+                if (!p) continue;
+
+                if (p->estaViva()) {
+                    p->atualiza(*this, l, c);
+                }
+
+                if (!p-> estaViva()) {
+                    delete p;
+                    grelha[l][c].setPlanta(nullptr);
+                }
+            }
+        }
 
         std::cout << "\n--- INSTANTE " << instanteAtual << " ---\n";
         imprime();

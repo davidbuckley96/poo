@@ -27,6 +27,10 @@ bool Ferramenta::estaAtiva() const {
     return ativa;
 }
 
+void Ferramenta::setAtiva(bool valor) {
+    ativa = valor;
+}
+
 void Ferramenta::mostrarInfo() const {
     std::cout << "Ferramenta " << simbolo
               << " (Nº " << numeroSerie << ")"

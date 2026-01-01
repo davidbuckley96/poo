@@ -22,22 +22,18 @@ void PlantaExotica::atualiza(Jardim& jardim, int linha, int coluna) {
 
     // Absorve 1 água e 1 nutriente do solo (se houver)
     if (solo.getAgua() > 0) {
-        solo.addAgua(-1);
-        agua += 1;
+        int retirada = std::min(idade, solo.getAgua());
+        solo.addAgua(-retirada);
+        agua += retirada;
     }
     if (solo.getNutrientes() > 0) {
-        solo.addNutrientes(-1);
-        nutrientes += 1;
-    }
-
-    // Verifica morte por idade ou excesso de água
-    if (idade > 3 || agua > 40) {
-        morrer(solo);
-        return;
+        int retirada = std::min(idade, solo.getNutrientes());
+        solo.addNutrientes(-retirada);
+        nutrientes += retirada;
     }
 
     // Multiplicação: se água < 30
-    if (agua < 30) {
+    if (idade >= 3) {
         int novasCriadas = 0;
 
         for (int dl = -1; dl <= 1 && novasCriadas < 2; ++dl) {
@@ -54,21 +50,16 @@ void PlantaExotica::atualiza(Jardim& jardim, int linha, int coluna) {
 
                 // verifica se há planta vizinha e se não é ErvaDaninha
                 Planta* existente = destino.getPlanta();
-                if (existente != nullptr) {
-                    if (typeid(*existente) == typeid(ErvaDaninha))
-                        continue; // não invade erva daninha
-                    else
-                        continue; // também não sobrepõe outras plantas
+                if (existente == nullptr) {
+                    PlantaExotica* nova = new PlantaExotica();
+                    jardim.plantar(nl, nc, nova);
+                    novasCriadas++;
+                    std::cout << "Uma planta exótica espalhou-se ao morrer!\n";
                 }
-
-                // cria nova planta exótica
-                PlantaExotica* nova = new PlantaExotica();
-                jardim.plantar(nl, nc, nova);
-                novasCriadas++;
-
-                std::cout << "Uma planta exótica espalhou-se para uma posição vizinha!\n";
             }
         }
+        morrer(solo);
+        return;
     }
 }
 
